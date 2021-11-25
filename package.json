@@ -15,7 +15,8 @@
     "sqlite3": "^5.0.2"
   },
   "engines": {
-    "node": "17.1.0"
+    "node": "17.1.0",
+    "npm": "5.17.1"
   },
   "scripts": {
     "start": "nodemon app.js"
