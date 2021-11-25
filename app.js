@@ -7,9 +7,9 @@ const cors = require("cors");
 const app = express();
 
 app.use(cors());
-
-const dbPath = path.join(__dirname, "Finance.sqlite3");
 app.use(express.json());
+const dbPath = path.join(__dirname, "Finance.sqlite3");
+
 app.use(express.static("files"));
 let db = null;
 
@@ -20,7 +20,7 @@ const initializeDBAndServer = async () => {
       driver: sqlite3.Database,
     });
     app.listen(3001, () => {
-      console.log("Server Running at http://localhost:3000/");
+      console.log("Server Running at http://localhost:3001/");
     });
   } catch (e) {
     console.log(`DB Error: ${e.message}`);
@@ -42,11 +42,12 @@ app.get("/books/", async (request, response) => {
 });
 
 app.post("/books/", async (request, response) => {
-  const bookDetails = request.body;
+  try {
+    const bookDetails = request.body;
 
-  const update = async (each) => {
-    const { userId, id, title, body } = each;
-    const addBookQuery = `
+    const update = async (each) => {
+      const { userId, id, title, body } = each;
+      const addBookQuery = `
     INSERT INTO
       data (id,userId,title,body)
     VALUES
@@ -56,23 +57,16 @@ app.post("/books/", async (request, response) => {
         '${body}'    
       );`;
 
-    const dbResponse = await db.run(addBookQuery);
-  };
-  bookDetails.map((each) => update(each));
-  response.send({
-    status: true,
-    message: "File Uploaded!",
-    bookDetails,
-  });
-});
-
-app.post("/boo/", async (request, response) => {
-  const dd = request.body;
-  response.send({
-    status: true,
-    message: "File Uploaded!",
-    dd,
-  });
+      const dbResponse = await db.run(addBookQuery);
+    };
+    bookDetails.map((each) => update(each));
+    response.send({
+      status: true,
+      message: "File Uploaded!",
+    });
+  } catch (err) {
+    response.send({ message: "Error Failed to upload" });
+  }
 });
 
 module.exports = app;
