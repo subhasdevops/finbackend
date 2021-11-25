@@ -21,6 +21,7 @@
     "npm": "5.17.1"
   },
   "scripts": {
+    "start": "npm install",
     "start": "nodemon app.js"
   }
 }
