@@ -21,7 +21,6 @@
     "node": "12.18.3"
   },
   "scripts": {
-    "start": "npm install",
     "start": "nodemon app.js"
   }
 }
