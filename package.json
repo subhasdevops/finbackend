@@ -17,8 +17,7 @@
     "sqlite3": "^5.0.2"
   },
   "engines": {
-    "node": "12.18.3",
-    "npm": "5.17.1"
+    "node": "12.18.3"
   },
   "scripts": {
     "start": "npm install",
